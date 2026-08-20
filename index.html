@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrateFlow — DJ Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#"><span class="brand-mark">C</span><span>crate<span>flow</span></span></a>
+        <button class="new-track" id="open-track-modal"><span>+</span> Add track</button>
+
+        <div class="library-heading"><span>LIBRARY</span><span class="count" id="library-count">0</span></div>
+        <nav class="genre-list" id="genre-list" aria-label="Genre filters"></nav>
+        <button class="add-genre-link" id="open-genre-modal">+ New genre</button>
+
+        <div class="sidebar-footer">
+          <div class="mini-vinyl"></div>
+          <div><strong>YOUR COLLECTION</strong><span id="collection-summary">0 tracks · 0 genres</span></div>
+        </div>
+      </aside>
+
+      <section class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">YOUR MUSIC LIBRARY</p>
+            <h1 id="page-title">All tracks</h1>
+          </div>
+          <div class="view-tools">
+            <button class="icon-button active" aria-label="Table view">☷</button>
+            <button class="icon-button" aria-label="Grid view">▦</button>
+            <div class="avatar">CD</div>
+          </div>
+        </header>
+
+        <div class="toolbar">
+          <label class="search"><span>⌕</span><input id="search-input" placeholder="Search tracks, artists or key..." /></label>
+          <div class="sort-wrap">
+            <span class="sort-label">SORT BY</span>
+            <select id="sort-select" aria-label="Sort tracks">
+              <option value="bpm-asc">BPM · Low to high</option>
+              <option value="bpm-desc">BPM · High to low</option>
+              <option value="title">Title · A to Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-meta"><span id="result-count">0 tracks</span><span>Click BPM to reverse order</span></div>
+        <div class="track-table" role="table">
+          <div class="table-head" role="row">
+            <span>#</span><span>TRACK</span><span>GENRE</span><button id="bpm-header" class="bpm-sort">BPM <i>↕</i></button><span>KEY</span><span></span>
+          </div>
+          <div id="track-list"></div>
+        </div>
+
+        <div class="empty-state" id="empty-state" hidden>
+          <div class="empty-icon">♫</div>
+          <h2>No tracks here yet</h2>
+          <p>Add a track to start building this crate.</p>
+          <button class="new-track small" id="open-track-empty">+ Add your first track</button>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="track-modal" class="modal">
+      <form id="track-form" method="dialog">
+        <div class="modal-top"><div><p class="eyebrow">BUILD YOUR CRATE</p><h2>Add a track</h2></div><button class="close" type="button" data-close="track-modal">×</button></div>
+        <div class="form-grid">
+          <label class="full">Track title<input required name="title" placeholder="e.g. Music Sounds Better With You" /></label>
+          <label class="full">Artist<input required name="artist" placeholder="e.g. Stardust" /></label>
+          <label>Genre<select required name="genre" id="track-genre"></select></label>
+          <label>BPM<input required type="number" min="1" max="300" name="bpm" placeholder="124" /></label>
+          <label class="full">Musical key<input required name="key" placeholder="e.g. 8A / Am" /></label>
+        </div>
+        <div class="lookup-row">
+          <button class="lookup-button" id="lookup-metadata" type="button">⌁ Look up BPM &amp; Key</button>
+          <span id="lookup-status" role="status"></span>
+        </div>
+        <p class="source-note">Metadata powered by <a href="https://getsongbpm.com" target="_blank" rel="noreferrer">GetSongBPM</a>.</p>
+        <button class="new-track submit" type="submit">Add to library <span>→</span></button>
+      </form>
+    </dialog>
+
+    <dialog id="genre-modal" class="modal compact">
+      <form id="genre-form" method="dialog">
+        <div class="modal-top"><div><p class="eyebrow">ORGANISE YOUR SOUND</p><h2>New genre</h2></div><button class="close" type="button" data-close="genre-modal">×</button></div>
+        <label>Genre name<input required name="genreName" placeholder="e.g. Afro House" /></label>
+        <button class="new-track submit" type="submit">Create genre <span>→</span></button>
+      </form>
+    </dialog>
+    <script src="app.js"></script>
+  </body>
+</html>
+
